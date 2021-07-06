@@ -53,6 +53,24 @@ contract MyContract {
 
 ```
 
+## Development
+
+To test the contract in a private network.
+
+```bash
+# Run local hardhat node.
+$ yarn hardhat node
+
+# Deploy Factory contract.
+$ yarn deploy:factory
+
+# Create pool.
+$ yarn create:pool --factory 0xFactoryAddress --token0 0xToken0Address --token1 0xToken1Address --fee 500
+
+# Initialize pool.
+$ yarn initialize:pool --pool 0xPoolAddress --sqrt-price 4295128739
+```
+
 ## Licensing
 
 The primary license for Uniswap V3 Core is the Business Source License 1.1 (`BUSL-1.1`), see [`LICENSE`](./LICENSE).
