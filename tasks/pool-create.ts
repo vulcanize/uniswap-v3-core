@@ -2,7 +2,7 @@ import { task, types } from "hardhat/config";
 import { ContractTransaction } from "ethers";
 import '@nomiclabs/hardhat-ethers';
 
-task("create-pool", "Creates pool using Factory contract")
+task("pool-create", "Creates pool using Factory contract")
   .addParam('factory', 'Address of factory contract', undefined, types.string)
   .addParam('token0', 'Address of first token contract', undefined, types.string)
   .addParam('token1', 'Address of second token contract', undefined, types.string)

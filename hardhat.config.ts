@@ -4,8 +4,11 @@ import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-etherscan'
 import { HardhatUserConfig } from "hardhat/config";
 
-import './tasks/create-pool';
-import './tasks/initialize-pool';
+import './tasks/factory-deploy';
+import './tasks/token-deploy';
+import './tasks/pool-create';
+import './tasks/pool-initialize';
+import './tasks/pool-mint';
 
 const config: HardhatUserConfig = {
   networks: {
@@ -38,10 +41,10 @@ const config: HardhatUserConfig = {
     version: '0.7.6',
     settings: {
       // Setting optimizer doesn't show error stack trace properly. Disabling it for local development.
-      // optimizer: {
-      //   enabled: true,
-      //   runs: 800,
-      // },
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
       metadata: {
         // do not include the metadata hash, since this is machine dependent
         // and we want all generated code to be deterministic
