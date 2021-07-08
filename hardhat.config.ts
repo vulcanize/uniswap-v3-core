@@ -6,6 +6,7 @@ import { HardhatUserConfig } from "hardhat/config";
 
 import './tasks/create-pool';
 import './tasks/initialize-pool';
+import './tasks/mint-pool';
 
 const config: HardhatUserConfig = {
   networks: {

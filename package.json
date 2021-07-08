@@ -57,6 +57,7 @@
     "test": "hardhat test",
     "deploy:factory": "hardhat run scripts/deploy-factory.ts --network localhost",
     "create:pool": "hardhat --network localhost create-pool",
-    "initialize:pool": "hardhat --network localhost initialize-pool"
+    "initialize:pool": "hardhat --network localhost initialize-pool",
+    "mint:pool": "hardhat --network localhost mint-pool"
   }
 }
