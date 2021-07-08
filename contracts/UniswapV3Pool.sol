@@ -434,6 +434,7 @@ contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {
             console.logInt(tickLower);
             console.logInt(tickUpper);
             console.logInt(tickSpacing);
+
             if (flippedLower) {
                 tickBitmap.flipTick(tickLower, tickSpacing);
             }

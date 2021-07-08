@@ -74,7 +74,7 @@ $ yarn pool:create --factory 0xFactoryAddress --token0 0xToken0Address --token1 
 $ yarn pool:initialize --pool 0xPoolAddress --sqrt-price 4295128739
 
 # Pool mint.
-$ yarn pool:mint --recipient 0xAccountAddress --tick-lower -887272 --tick-upper 887272 --amount 10 --pool 0xPoolAddress
+$ yarn pool:mint --pool 0xPoolAddress --recipient 0xRecipientAddress --amount 10
 ```
 
 ## Licensing

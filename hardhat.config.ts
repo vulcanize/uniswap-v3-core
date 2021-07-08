@@ -41,10 +41,10 @@ const config: HardhatUserConfig = {
     version: '0.7.6',
     settings: {
       // Setting optimizer doesn't show error stack trace properly. Disabling it for local development.
-      // optimizer: {
-      //   enabled: true,
-      //   runs: 800,
-      // },
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
       metadata: {
         // do not include the metadata hash, since this is machine dependent
         // and we want all generated code to be deterministic

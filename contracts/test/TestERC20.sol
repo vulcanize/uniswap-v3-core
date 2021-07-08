@@ -34,6 +34,7 @@ contract TestERC20 is IERC20Minimal {
 
     function approve(address spender, uint256 amount) external override returns (bool) {
         console.log('ERC20 approve', msg.sender, spender, amount);
+
         allowance[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
         return true;
@@ -45,8 +46,11 @@ contract TestERC20 is IERC20Minimal {
         uint256 amount
     ) external override returns (bool) {
         console.log('ERC20 transferFrom', sender, msg.sender, amount);
+
         uint256 allowanceBefore = allowance[sender][msg.sender];
+
         console.log('allowanceBefore', allowanceBefore);
+
         require(allowanceBefore >= amount, 'allowance insufficient');
 
         allowance[sender][msg.sender] = allowanceBefore - amount;
