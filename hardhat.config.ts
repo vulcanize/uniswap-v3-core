@@ -2,11 +2,16 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-etherscan'
+import { HardhatUserConfig } from "hardhat/config";
 
-export default {
+import './tasks/create-pool';
+import './tasks/initialize-pool';
+
+const config: HardhatUserConfig = {
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: false,
+      // Need to set to true when optimizer is not set.
+      allowUnlimitedContractSize: true,
     },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -32,10 +37,11 @@ export default {
   solidity: {
     version: '0.7.6',
     settings: {
-      optimizer: {
-        enabled: true,
-        runs: 800,
-      },
+      // Setting optimizer doesn't show error stack trace properly. Disabling it for local development.
+      // optimizer: {
+      //   enabled: true,
+      //   runs: 800,
+      // },
       metadata: {
         // do not include the metadata hash, since this is machine dependent
         // and we want all generated code to be deterministic
@@ -45,3 +51,5 @@ export default {
     },
   },
 }
+
+export default config;
