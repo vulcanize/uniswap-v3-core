@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity =0.7.6;
 
+import 'hardhat/console.sol';
+
 import './interfaces/IUniswapV3Pool.sol';
 
 import './NoDelegateCall.sol';
@@ -428,6 +430,10 @@ contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {
                 maxLiquidityPerTick
             );
 
+            console.log('ticks');
+            console.logInt(tickLower);
+            console.logInt(tickUpper);
+            console.logInt(tickSpacing);
             if (flippedLower) {
                 tickBitmap.flipTick(tickLower, tickSpacing);
             }

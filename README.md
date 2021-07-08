@@ -62,13 +62,19 @@ To test the contract in a private network.
 $ yarn hardhat node
 
 # Deploy Factory contract.
-$ yarn deploy:factory
+$ yarn factory:deploy
+
+# Deploy token.
+$ yarn token:deploy
 
 # Create pool.
-$ yarn create:pool --factory 0xFactoryAddress --token0 0xToken0Address --token1 0xToken1Address --fee 500
+$ yarn pool:create --factory 0xFactoryAddress --token0 0xToken0Address --token1 0xToken1Address --fee 500
 
-# Initialize pool.
-$ yarn initialize:pool --pool 0xPoolAddress --sqrt-price 4295128739
+# Pool initialize.
+$ yarn pool:initialize --pool 0xPoolAddress --sqrt-price 4295128739
+
+# Pool mint.
+$ yarn pool:mint --recipient 0xAccountAddress --tick-lower -887272 --tick-upper 887272 --amount 10 --pool 0xPoolAddress
 ```
 
 ## Licensing

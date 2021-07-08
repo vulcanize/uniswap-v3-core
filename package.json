@@ -55,9 +55,10 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy:factory": "hardhat run scripts/deploy-factory.ts --network localhost",
-    "create:pool": "hardhat --network localhost create-pool",
-    "initialize:pool": "hardhat --network localhost initialize-pool",
-    "mint:pool": "hardhat --network localhost mint-pool"
+    "factory:deploy": "hardhat --network localhost factory-deploy",
+    "token:deploy": "hardhat --network localhost token-deploy",
+    "pool:create": "hardhat --network localhost pool-create",
+    "pool:initialize": "hardhat --network localhost pool-initialize",
+    "pool:mint": "hardhat --network localhost pool-mint"
   }
 }

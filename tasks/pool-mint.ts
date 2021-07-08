@@ -1,5 +1,6 @@
 import { task, types } from "hardhat/config";
 import '@nomiclabs/hardhat-ethers';
+import { ContractTransaction } from "ethers";
 
 import {
   abi as ERC20_ABI
@@ -10,15 +11,14 @@ const getMaxTick = (tickSpacing: number) => Math.floor(887272 / tickSpacing) * t
 
 const APPROVE_AMOUNT = BigInt(1000000000000000000000000);
 
-task("mint-pool", "Adds liquidity for the given position to the pool")
+task("pool-mint", "Adds liquidity for the given position to the pool")
   .addParam('pool', 'Address of pool contract', undefined, types.string)
   .addParam('recipient', 'Address for which the liquidity will be created', undefined, types.string)
-  .addParam('tickLower', 'Lower tick of the position in which to add liquidity', undefined, types.string)
-  .addParam('tickUpper', 'Upper tick of the position in which to add liquidity', undefined, types.string)
   .addParam('amount', 'Amount of liquidity to mint', undefined, types.string)
   .setAction(async (args, hre) => {
-    const { pool: poolAddress, recipient, tickLower, tickUpper, amount } = args
+    const { pool: poolAddress, recipient, amount } = args
     const [signer] = await hre.ethers.getSigners();
+    await hre.run('compile');
 
     const TestUniswapV3Callee = await hre.ethers.getContractFactory('TestUniswapV3Callee');
     const poolCallee = await TestUniswapV3Callee.deploy();
@@ -30,18 +30,37 @@ task("mint-pool", "Adds liquidity for the given position to the pool")
     const token1Address = await pool.token1();
     const tickSpacing = await pool.tickSpacing();
 
-    console.log(token0Address, token1Address, tickSpacing, getMinTick(tickSpacing), getMaxTick(tickSpacing));
+    // https://github.com/Uniswap/uniswap-v3-core/blob/main/test/UniswapV3Pool.spec.ts#L196
+    const tickLower = getMinTick(tickSpacing);
+    const tickUpper = getMaxTick(tickSpacing);
+
+    console.log(token0Address, token1Address, tickSpacing, tickLower, tickUpper);
 
     const token0 = new hre.ethers.Contract(token0Address, ERC20_ABI, signer);
     const token1 = new hre.ethers.Contract(token1Address, ERC20_ABI, signer);
 
-    const t0 = await token0.approve(poolAddress, APPROVE_AMOUNT);
+    // Approving tokens for Pool contract.
+    // const t0 = await token0.approve(poolAddress, APPROVE_AMOUNT);
+    // const t1 = await token1.approve(poolAddress, APPROVE_AMOUNT);
+    
+    // Approving tokens for TestUniswapV3Callee contract.
+    // https://github.com/Uniswap/uniswap-v3-core/blob/main/test/shared/utilities.ts#L187
+    const t0 = await token0.approve(poolCallee.address, APPROVE_AMOUNT)
     await t0.wait();
 
-    const t1 = await token1.approve(poolAddress, APPROVE_AMOUNT);
+    const t1 = await token1.approve(poolCallee.address, APPROVE_AMOUNT)
     await t1.wait();
 
-    const transaction = await poolCallee.mint(poolAddress, recipient, BigInt(tickLower), BigInt(tickUpper), BigInt(amount));
+
+    // Inside uniswapV3MintCallback, transfering tokens to TestUniswapV3Callee contract.
+    const transaction: ContractTransaction = await poolCallee.mint(poolAddress, recipient, BigInt(tickLower), BigInt(tickUpper), BigInt(amount));
     const receipt = await transaction.wait();
-    console.log(JSON.stringify(receipt));
+
+    if (receipt.events) {
+      console.log('Transaction events');
+
+      receipt.events.forEach(event => {
+        console.log('Event name', event.event, event.args)
+      });
+    }
   });

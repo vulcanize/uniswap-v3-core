@@ -2,11 +2,12 @@ import { task, types } from "hardhat/config";
 import { ContractTransaction } from "ethers";
 import '@nomiclabs/hardhat-ethers';
 
-task("initialize-pool", "Initializes a pool")
+task("pool-initialize", "Initializes a pool")
   .addParam('pool', 'Address of pool contract', undefined, types.string)
   .addParam('sqrtPrice', 'Initial sqrtPriceX96', undefined, types.int)
   .setAction(async (args, hre) => {
     const { pool: poolAddress, sqrtPrice } = args
+    await hre.run('compile');
     const Pool = await hre.ethers.getContractFactory('UniswapV3Pool')
     const pool = Pool.attach(poolAddress);
     const transaction: ContractTransaction = await pool.initialize(sqrtPrice);

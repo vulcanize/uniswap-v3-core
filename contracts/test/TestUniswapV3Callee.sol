@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity =0.7.6;
 
+import 'hardhat/console.sol';
+
 import '../interfaces/IERC20Minimal.sol';
 
 import '../libraries/SafeCast.sol';
@@ -105,7 +107,11 @@ contract TestUniswapV3Callee is IUniswapV3MintCallback, IUniswapV3SwapCallback, 
         uint256 amount1Owed,
         bytes calldata data
     ) external override {
+        console.log('mint data');
+        console.logBytes(data);
         address sender = abi.decode(data, (address));
+        console.log('mint data decoded to sender', sender);
+        console.log('mint callback transfer to', msg.sender, amount0Owed, amount1Owed);
 
         emit MintCallback(amount0Owed, amount1Owed);
         if (amount0Owed > 0)

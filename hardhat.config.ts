@@ -4,9 +4,11 @@ import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-etherscan'
 import { HardhatUserConfig } from "hardhat/config";
 
-import './tasks/create-pool';
-import './tasks/initialize-pool';
-import './tasks/mint-pool';
+import './tasks/factory-deploy';
+import './tasks/token-deploy';
+import './tasks/pool-create';
+import './tasks/pool-initialize';
+import './tasks/pool-mint';
 
 const config: HardhatUserConfig = {
   networks: {
