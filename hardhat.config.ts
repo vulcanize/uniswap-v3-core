@@ -9,6 +9,8 @@ import './tasks/token-deploy';
 import './tasks/pool-create';
 import './tasks/pool-initialize';
 import './tasks/pool-mint';
+import './tasks/pool-burn';
+import './tasks/pool-swap';
 
 const config: HardhatUserConfig = {
   networks: {

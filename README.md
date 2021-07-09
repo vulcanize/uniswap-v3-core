@@ -71,10 +71,16 @@ $ yarn token:deploy
 $ yarn pool:create --factory 0xFactoryAddress --token0 0xToken0Address --token1 0xToken1Address --fee 500
 
 # Pool initialize.
-$ yarn pool:initialize --pool 0xPoolAddress --sqrt-price 4295128739
+$ yarn pool:initialize --pool 0xPoolAddress --sqrt-price 4295128939
 
 # Pool mint.
 $ yarn pool:mint --pool 0xPoolAddress --recipient 0xRecipientAddress --amount 10
+
+# Pool burn.
+$ yarn pool:burn --pool 0xPoolAddress --amount 10
+
+# Pool swap.
+$ yarn pool:swap --pool 0xPoolAddress --recipient 0xRecipientAddress --sqrt-price 4295128938
 ```
 
 ## Licensing
