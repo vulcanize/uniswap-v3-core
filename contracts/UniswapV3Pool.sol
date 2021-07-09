@@ -611,6 +611,10 @@ contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {
 
         Slot0 memory slot0Start = slot0;
 
+        // console.log("swap", zeroForOne);
+        // console.log("sqrtPriceLimitX96", sqrtPriceLimitX96);
+        // console.log("slot0Start.sqrtPriceX96", slot0Start.sqrtPriceX96);
+
         require(slot0Start.unlocked, 'LOK');
         require(
             zeroForOne

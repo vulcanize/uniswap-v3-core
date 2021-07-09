@@ -59,6 +59,8 @@
     "token:deploy": "hardhat --network localhost token-deploy",
     "pool:create": "hardhat --network localhost pool-create",
     "pool:initialize": "hardhat --network localhost pool-initialize",
-    "pool:mint": "hardhat --network localhost pool-mint"
+    "pool:mint": "hardhat --network localhost pool-mint",
+    "pool:burn": "hardhat --network localhost pool-burn",
+    "pool:swap": "hardhat --network localhost pool-swap"
   }
 }
