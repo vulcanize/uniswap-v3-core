@@ -2,10 +2,6 @@ import { task, types } from "hardhat/config";
 import '@nomiclabs/hardhat-ethers';
 import { ContractTransaction } from "ethers";
 
-import {
-  abi as ERC20_ABI
-} from '../artifacts/contracts/interfaces/IERC20Minimal.sol/IERC20Minimal.json';
-
 const getMinTick = (tickSpacing: number) => Math.ceil(-887272 / tickSpacing) * tickSpacing;
 const getMaxTick = (tickSpacing: number) => Math.floor(887272 / tickSpacing) * tickSpacing;
 

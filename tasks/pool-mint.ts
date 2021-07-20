@@ -2,10 +2,6 @@ import { task, types } from "hardhat/config";
 import '@nomiclabs/hardhat-ethers';
 import { ContractTransaction } from "ethers";
 
-import {
-  abi as ERC20_ABI
-} from '../artifacts/contracts/interfaces/IERC20Minimal.sol/IERC20Minimal.json';
-
 const getMinTick = (tickSpacing: number) => Math.ceil(-887272 / tickSpacing) * tickSpacing;
 const getMaxTick = (tickSpacing: number) => Math.floor(887272 / tickSpacing) * tickSpacing;
 
@@ -34,8 +30,10 @@ task("pool-mint", "Adds liquidity for the given position to the pool")
     const tickLower = getMinTick(tickSpacing);
     const tickUpper = getMaxTick(tickSpacing);
 
-    const token0 = new hre.ethers.Contract(token0Address, ERC20_ABI, signer);
-    const token1 = new hre.ethers.Contract(token1Address, ERC20_ABI, signer);
+    const { abi: erc20ABI } = await hre.artifacts.readArtifact('IERC20Minimal')
+
+    const token0 = new hre.ethers.Contract(token0Address, erc20ABI, signer);
+    const token1 = new hre.ethers.Contract(token1Address, erc20ABI, signer);
 
     // Approving tokens for TestUniswapV3Callee contract.
     // https://github.com/Uniswap/uniswap-v3-core/blob/main/test/shared/utilities.ts#L187
